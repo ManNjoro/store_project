@@ -1,0 +1,147 @@
+body{
+    margin: 0;
+}
+
+.body-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.sidebar {
+    background-color: #0A2558; 
+    font-weight: bold;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.admin-navbar {
+    background-color: beige;
+    color: #141212;
+    width: 100%;
+    height: 20px;
+    padding: 30px;
+    box-shadow: 4px 1px #141212;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-details{
+    display: flex;
+    align-items: center;
+    background: #F5F6FA;
+    border: 2px solid #EFEEF1;
+    border-radius: 6px;
+    height: 50px;
+    min-width: 190px;
+    padding: 0 15px 0 2px;
+  }
+
+.admin_name{
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin: 0 10px;
+    white-space: nowrap;
+}
+.profile-details i {
+    font-size: 24px;
+}
+
+
+table{
+ border-collapse: collapse;
+ width: 100%;
+ color: #080707;
+ font-family: sans-serif;
+ text-align: left;
+ background: none;
+}
+
+table th{
+    background-color: #eb4034;
+    color: white;
+  }
+table tr:nth-child(even){
+background-color: #a19f9f;
+}
+.modal-btn {
+    float: right;
+    margin: 5px 2px;
+}
+
+.imagePreview {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: 27px;
+    padding: 70px 0;
+  
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;   
+    color: #000;
+  }
+  
+  .form > input {
+    border: 1px solid rgba(209, 213, 219);
+    height: 40px;
+    text-indent: 10px;
+    font-family: "Inter", sans-serif;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    font-weight: 400;
+  }
+  
+  .form > input:focus {
+    outline: none;
+  }
+  
+  .form > input:first-of-type {
+    border-radius: 6px 6px 0px 0px;
+  }
+  
+  .form > input:last-of-type {
+    border-radius: 0px 0px 6px 6px;
+    border-top: none;
+  }
+  
+  .form > button {
+    background-color: #FF8C38;
+    border: none;
+    border-radius: 6px;
+    height: 55px;
+    margin-top: 22px;
+    color: white;
+    font-family: "Inter", sans-serif;
+    cursor: pointer;
+  }
+  
+  .form > button:disabled {
+    background-color: #aaaaaa;
+    cursor: not-allowed;
+  }
+
+/* a .links_name{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+} */

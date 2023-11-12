@@ -1,0 +1,196 @@
+.nav-container {
+  background-color: #0d75bb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  font-size: 18px;
+  font-weight: 300;
+  justify-content: space-around;
+  margin-right: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: rgb(27, 27, 27);
+  color: #fff;
+  height: fit-content;
+  width: 100%;
+  border-top: 1px solid #CCCCCC;
+  font-size: small;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 27px;
+  padding: 70px 0;
+
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;   
+  color: #000;
+}
+
+.form > input {
+  border: 1px solid rgba(209, 213, 219);
+  height: 40px;
+  text-indent: 10px;
+  font-family: "Inter", sans-serif;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  font-weight: 400;
+}
+
+.form > input:focus {
+  outline: none;
+}
+
+.form > input:first-of-type {
+  border-radius: 6px 6px 0px 0px;
+}
+
+.form > input:last-of-type {
+  border-radius: 0px 0px 6px 6px;
+  border-top: none;
+}
+
+.form > button {
+  background-color: #FF8C38;
+  border: none;
+  border-radius: 6px;
+  height: 55px;
+  margin-top: 22px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}
+
+.form > button:disabled {
+  background-color: #aaaaaa;
+  cursor: not-allowed;
+}
+
+.eye {
+  position: absolute;
+  top: 70%;
+  right: 32%;
+  cursor: pointer;
+}
+
+.account {
+  color: #FF8C38;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 175px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  align-items: center;
+  font-size: 12px;
+  position: relative;
+  --bs-card-border-width: none;
+  box-shadow: 0 0 15px beige;
+  z-index: 1;
+}
+
+.img-holder {
+  position: relative;
+  height: 150px; /* Set a fixed height for the images */
+  overflow: hidden; /* Ensure that images don't exceed the specified height */
+}
+
+.store-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain image aspect ratio and cover the container */
+  border-radius: 5px;
+}
+
+.cards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); /* Responsive grid */
+  gap: 5px;
+}
+
+.card-stats {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px; /* Add padding to the card details */
+}
+
+.store-info > p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 5px; /* Add margin between details */
+}
+
+.card-container {
+  position: relative;
+}
+.store-name {
+  font-size: 16px; /* Larger font size for the store name */
+  font-weight: bold;
+  color: #333; /* Darker color for better contrast */
+}
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.opening-closing-time {
+  color: #888; /* Lighter color for opening and closing times */
+}
+
+.store-card {
+  max-width: 800px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+}
+.store-detail-container {
+  padding-inline: 23px;
+}
+.store-detail-img {
+  min-height: 300px;
+  border-radius: 10px;
+  margin-top: 15px;
+  max-width: 400px;
+}
+.store-details-only {
+  font-size: 12px;
+}
+.store-details-only h2,h1{
+  font-size: medium;
+  font-weight: bold;
+}

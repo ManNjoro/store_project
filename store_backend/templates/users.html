@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block navbar %}
+<h1>Users</h1>
+{%endblock%}
+{% block content %}
+<!-- Button trigger modal -->
+<div class="modal-btn">
+
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUser">
+        Add User
+    </button>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addUserLabel">New User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{{url_for('auth.addNewUser')}}" method="post" id="myForm" enctype="multipart/form-data">
+            <label for="first_name">First Name</label>
+            <input class="form-control" type="text" name="first_name" id="first_name" placeholder="First Name" required>
+            <label for="last_name">Last Name</label>
+            <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Last Name" required>
+            <label for="email">Email</label>
+            <input class="form-control" type="email" name="email" id="email" placeholder="Email" required>
+            <label for="phone">Phone Number</label>
+            <input class="form-control" type="text" name="phone" id="phone" required>
+            <label for="password1">Password</label>
+            <input class="form-control" type="password" name="password1" id="password1" required placeholder="Password">
+            <label for="password2">Confirm Password</label>
+            <input class="form-control mb-4" type="password" name="password2" id="password2" placeholder="Confirm password" required>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">Clear</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th colspan="2">Action</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>
+            <div class="modal-btn">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser" data-store-id="{{ user.id }} " id="deleteUser">Delete</button>
+            </div>
+        </td>
+    </tr>
+    <!--Delete Modal -->
+<div class="modal fade" id="deleteUser" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Are you sure?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <a href="/users/{{ user.id }}/delete"><button type="button" class="btn btn-primary" id="confirm-delete-user">Ok</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    {% endfor %}
+</table>
+{% endblock %}
