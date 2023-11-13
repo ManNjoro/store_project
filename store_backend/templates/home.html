@@ -1,6 +1,41 @@
 {% extends "base.html" %}
+
 {% block navbar %}
-<h1>Dashboard</h1>
-{%endblock%}
+  <h1 class="dashboard-title">Dashboard</h1>
+{% endblock %}
+
 {% block content %}
+  <div class="dashboard">
+    <div class="dashboard-summary">
+      <div class="summary-card total-users-card">
+        <h2 class="summary-heading">Total Users</h2>
+        <!-- Display the total number of users -->
+        <p class="summary-value">{{ total_users }}</p>
+      </div>
+      <div class="summary-card total-stores-card">
+        <h2 class="summary-heading">Total Stores</h2>
+        <!-- Display the total number of stores -->
+        <p class="summary-value">{{ total_stores }}</p>
+      </div>
+    </div>
+
+    <div class="dashboard-activities recent-activities">
+      <h2 class="activities-heading">Recent Activities</h2>
+      <!-- Display recent activities or notifications -->
+      <!-- For example: Recent user sign-ups, store additions, etc. -->
+      <h1>Users</h1>
+      <ul class="activities-list">
+        {% for user in recent_users %}
+          <li class="activity-item">{{ user.first_name }} {{ user.last_name }} - {{ user.updated_at }}</li>
+        {% endfor %}
+      </ul>
+      <h1>Stores</h1>
+      <ul class="activities-list">
+        {% for store in recent_stores %}
+          <li class="activity-item">{{ store.store_name }} - {{ store.updated_at }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
 {% endblock %}

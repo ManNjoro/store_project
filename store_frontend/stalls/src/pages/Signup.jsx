@@ -33,26 +33,18 @@ export default function SignUp() {
     ) {
       console.log("Fill in all details");
       return;
-    }else if (formData.password1 !== formData.password2) {
-        console.log("passwords do not match")
-        return
+    } else if (formData.password1 !== formData.password2) {
+      console.log("passwords do not match");
+      return;
     } else if (formData.password1.length < 8) {
-        console.log("Password must be at least 8 characters")
-        return
-    } else{
-      const data = await createUser(formData)
-      if (data.category === 'success') {
-        window.location.href = '/';
+      console.log("Password must be at least 8 characters");
+      return;
+    } else {
+      const data = await createUser(formData);
+      if (data.category === "success") {
+        window.location.href = "/";
       }
     }
-  }
-  const [typePassword, setTypePassword] = useState(true)
-  function togglePassword(){
-    // const eye = document.querySelector('.eye')
-    const password1 = document.querySelector('#password1')
-    setTypePassword(prevType => !prevType)
-    password1.type = typePassword ? "password" : "text"
-    console.log(password1.type)
   }
   return (
     <div className="form-container">
@@ -104,13 +96,6 @@ export default function SignUp() {
           id="password1"
           required
         />
-        {typePassword  ?
-        <FaEye className="eye" onClick={togglePassword}/>
-        :
-        <FaEyeSlash className="eye" onClick={togglePassword}/>
-        }
-        
-        
         <input
           name="password2"
           type="password"
@@ -121,7 +106,9 @@ export default function SignUp() {
           required
         />
         <button>Register</button>
-        <Link to='/login'><p className="account">Already have an account? Login</p></Link>
+        <Link to="/login">
+          <p className="account">Already have an account? Login</p>
+        </Link>
       </form>
     </div>
   );

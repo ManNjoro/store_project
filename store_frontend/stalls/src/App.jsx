@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import Stores, { storeLoader } from './pages/Stores'
 import About from './pages/About'
 import StoreDetails, { storeDetailLoader } from './pages/StoreDetails'
+import { ShopContextProvider } from './context/Context'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +26,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
+    <ShopContextProvider>
       <RouterProvider router={router} />
+    </ShopContextProvider>
     </>
   )
 }

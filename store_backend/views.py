@@ -21,17 +21,24 @@ def allowed_file(filename):
 @views.route('/')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+     # Fetch recent users
+    recent_users = User.query.order_by(User.updated_at.desc()).limit(5).all()
+    recent_stores = Store.query.order_by(Store.updated_at.desc()).limit(5).all()
+
+    # Fetch total number of users and stores
+    total_users = User.query.count()
+    total_stores = Store.query.count()
+    return render_template("home.html", user=current_user, recent_users=recent_users, total_users=total_users, total_stores=total_stores, recent_stores=recent_stores)
 
 @views.route('/users')
 @login_required
 def users():
-    users = User.query.all()
+    users = User.query.order_by(User.updated_at.desc()).all()
     return render_template("users.html", users=users, user=current_user)
 @views.route("/stores")
 @login_required
 def stores():
-    stores = Store.query.all()
+    stores = Store.query.order_by(Store.updated_at.desc()).all()
     return render_template("stores.html", stores=stores, user=current_user)
 
 @views.route('/stores/add_new', methods=['POST'])
