@@ -1,6 +1,6 @@
 const url = 'http://localhost:5000'
 export async function loginUser(creds) {
-    const res = await fetch(`${url}/login`, {
+    const res = await fetch(`${url}/api/token`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -42,6 +42,7 @@ export async function createUser(creds) {
 
     return data;
 }
+
 
 export async function getStores(id) {
     const finalUrl = id ? `${url}/api/stores/${id}` : `${url}/api/stores` 

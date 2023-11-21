@@ -5,7 +5,7 @@ import { ShopContext } from "../context/Context";
 export default function NavBar() {
   const {token, loginToken, logoutToken} = useContext(ShopContext);
   const navigate = useNavigate()
-  console.log("state now is:",token)
+  console.log("state now is:", token)
   return (
     <div className="nav-container">
     <Link className="logo" to="/"></Link>
@@ -13,7 +13,7 @@ export default function NavBar() {
         <NavLink className={({isActive})=> isActive ? "active" : null} to="/">Home</NavLink>
         <NavLink to="/stores">Stores</NavLink>
         <NavLink to="/about">About Us</NavLink>
-        {token ? 
+        {token && token !== '' && token !== undefined  ? 
 
         (<button className="logout-btn" onClick={()=> {
           logoutToken(null)

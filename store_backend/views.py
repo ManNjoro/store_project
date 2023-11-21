@@ -6,6 +6,7 @@ from flask import abort, Blueprint, request, render_template, jsonify, send_file
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
 from datetime import datetime, time
+from flask_jwt_extended import jwt_required
 from store_backend.models import Store, User, Admin
 from store_backend import db
 
@@ -21,6 +22,7 @@ def allowed_file(filename):
 @views.route('/')
 @login_required
 def home():
+    """homepage"""
      # Fetch recent users
     recent_users = User.query.order_by(User.updated_at.desc()).limit(5).all()
     recent_stores = Store.query.order_by(Store.updated_at.desc()).limit(5).all()
@@ -30,14 +32,23 @@ def home():
     total_stores = Store.query.count()
     return render_template("home.html", user=current_user, recent_users=recent_users, total_users=total_users, total_stores=total_stores, recent_stores=recent_stores)
 
+@views.route('/data')
+def getData():
+    """get dataset"""
+    data = [67,90,23,45,66,21,78]
+    return jsonify({'data':data})
+
 @views.route('/users')
 @login_required
 def users():
+    """list users"""
     users = User.query.order_by(User.updated_at.desc()).all()
     return render_template("users.html", users=users, user=current_user)
+
 @views.route("/stores")
 @login_required
 def stores():
+    """list stores"""
     stores = Store.query.order_by(Store.updated_at.desc()).all()
     return render_template("stores.html", stores=stores, user=current_user)
 
@@ -149,8 +160,9 @@ def deleteUser(user_id):
 
 
 @views.route("/api/stores")
+# @jwt_required() -- protected
 def getStores():
-    stores = Store.query.all()
+    stores = Store.query.order_by(Store.updated_at.desc()).all()
     stores = [{
         'id': store.id, 'name': store.store_name, 'price': store.price,
         'floor_number': store.floor_number,
@@ -158,7 +170,7 @@ def getStores():
         'closing_time': store.closing_time.isoformat(),
         'description': store.description,
         } for store in stores]
-    return jsonify(stores=stores)
+    return jsonify(stores=stores), 200
 
 @views.route("/api/stores/<string:store_id>")
 def getStore(store_id):

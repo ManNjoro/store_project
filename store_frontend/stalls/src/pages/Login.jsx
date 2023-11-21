@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
-import { loginUser } from "../api";
+// import { loginUser } from "../api";
 import { ShopContext } from "../context/Context";
 
 export default function Login() {
   const navigate = useNavigate()
-  const {token, loginToken, logoutToken} = useContext(ShopContext);
+  const {token, loginToken, logoutToken, loginUser} = useContext(ShopContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,13 +26,13 @@ export default function Login() {
         return
     } 
     const data = await loginUser(formData)
-    if (data.category === 'success') {
-      console.log(formData);
-      loginToken(data.user.isAuthenticated)
-      navigate('/');
+    console.log(formData);
+    if (data) navigate('/')
+    // if (data.category === 'success') {
+      // loginToken(data.user.isAuthenticated)
+      // }
     }
-    
-  }
+  console.log("token", token)
   console.log(token)
   return (
     <div className="form-container">

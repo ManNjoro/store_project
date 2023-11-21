@@ -3,7 +3,7 @@ function resetForm() {
 }
 
 $("#confirm-delete-btn").on("click", function (event) {
-  var storeId = $("#delete").data("store-id");
+  let storeId = $("#delete").data("store-id");
   console.log(storeId);
   // Perform AJAX request to delete the record
   $.ajax({
@@ -28,10 +28,10 @@ $("#confirm-delete-btn").on("click", function (event) {
 });
 
 $(document).ready(function() {
-    var storeId = $("#edit").data("store-id");
+    let storeId = $("#edit").data("store-id");
     $(`#store_pic_${storeId}`).on('change', function(event) {
-        var input = event.target;
-        var reader = new FileReader();
+        let input = event.target;
+        let reader = new FileReader();
 
         reader.onload = function() {
             $(`#imagePreview_${storeId}`).attr('src', reader.result);
@@ -41,4 +41,39 @@ $(document).ready(function() {
     });
 });
 
+// let dataset = {{ data|tojson }}
+let dataArray;
+$.ajax({
+  type: "GET",
+  url: "http://localhost:5000/data",
+  success: function (response) {
+    console.log(response);
+    dataArray = response.data
+    processData(dataArray);
+
+  }
+});
+// console.log(dataArray)
+function processData(dataArray) {
+  // Perform actions that depend on dataArray here
+  let chartData = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Monthly Sales",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        data: dataArray,
+      },
+    ],
+  };
+  
+  // Get the canvas element and initialize the chart
+  let ctx = document.getElementById("myChart").getContext("2d");
+  let myChart = new Chart(ctx, {
+    type: "bar",
+    data: chartData,
+  });
+  console.log(dataArray);
+}
 

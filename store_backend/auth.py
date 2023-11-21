@@ -5,11 +5,25 @@ contains of all authentication routes
 from flask import Blueprint, request, jsonify, make_response, render_template, flash, url_for, redirect
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 from store_backend.models import User, Admin
 from store_backend import db
 
 auth = Blueprint('auth',__name__, url_prefix='/')
 
+# Create a route to authenticate your users and return JWTs. The
+# create_access_token() function is used to actually generate the JWT.
+@auth.route("/api/token", methods=["POST"])
+def create_token():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != "test@gmail.com" or password != "test1234":
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
 @auth.route("/users/new_user", methods=['POST'])
 def addNewUser():
     """
@@ -38,7 +52,7 @@ def addNewUser():
             flash('Phone number must be at least 10 digits', category='error')
         else:
             # add new user to DB and hash password
-            new_user = User(first_name=first_name, last_name=last_name,phone=phone, email=email, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(first_name=first_name, last_name=last_name,phone=phone, email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             # db.session.add(Admin(first_name='James', last_name='Admin', email='admin@gmail.com', phone='0711111111', password=generate_password_hash('admin123', method='sha256')))
             db.session.commit()
@@ -84,9 +98,10 @@ def signup():
             new_user = User(first_name=firstName,last_name=lastName, phone=phoneNumber, email=email, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
+            access_token = create_access_token(identity=email)
             message = 'Account created!'
             category = 'success'
-            return jsonify({"message": message, 'category': category}), 200
+            return jsonify({"message": message, 'category': category, 'access_token':access_token}), 200
     return jsonify({"error": "Forbidden method"}), 403
 
 @auth.route('/login', methods=['POST'])
@@ -103,13 +118,14 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 login_user(user, remember=True)
+                access_token = create_access_token(identity=email)
                 user_info = {
                             'id': current_user.id,
                             'name': current_user.first_name,
                             'email': current_user.email,
                             'isAuthenticated': current_user.is_authenticated
                         }
-                return jsonify({'message': 'Logged in successfully', 'category': 'success', 'user': user_info}), 200
+                return jsonify({'message': 'Logged in successfully', 'category': 'success', 'user': user_info, 'access_token':access_token}), 200
             else:
                 message = 'Incorrect password'
                 category = 'error'

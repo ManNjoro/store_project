@@ -61,12 +61,12 @@
         <td>{{ user.phone }}</td>
         <td>
             <div class="modal-btn">
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser" data-store-id="{{ user.id }} " id="deleteUser">Delete</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser{{ user.id }}" data-store-id="{{ user.id }} " id="deleteUser">Delete</button>
             </div>
         </td>
     </tr>
     <!--Delete Modal -->
-<div class="modal fade" id="deleteUser" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteUser{{ user.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
